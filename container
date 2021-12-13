@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+if [ "$1" = "dump" ]; then
+  echo "$1";
+  docker exec -it template-api-php composer dump-autoload;
+elif [ "$1" = "optimize" ]; then
+  echo "optimize:clear";
+  docker exec -it template-api-php php artisan optimize:clear;
+  echo "optimize";
+  docker exec -it template-api-php php artisan optimize;
+elif [ "$1" = "flush" ]; then
+  echo "dump";
+  docker exec -it template-api-php composer dump-autoload;
+  echo "optimize:clear";
+  docker exec -it template-api-php php artisan optimize:clear;
+  echo "optimize";
+  docker exec -it template-api-php php artisan optimize;
+else
+  docker exec -it template-api-php bash;
+fi
